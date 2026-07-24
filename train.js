@@ -146,29 +146,6 @@ function r2Score(model, X, y) {
   return 1 - ssRes / ssTot;
 }
 
-function r2Score(modelOrPreds, XorY, maybeY) {
-  let preds, y;
-
-  if (Array.isArray(modelOrPreds)) {
-    preds = modelOrPreds;
-    y = XorY;
-  } else {
-    preds = XorY.map(x => modelOrPreds.predict(x));
-    y = maybeY;
-  }
-
-  const meanY = y.reduce((a, b) => a + b, 0) / y.length;
-
-  let ssRes = 0;
-  let ssTot = 0;
-
-  for (let i = 0; i < y.length; i++) {
-    ssRes += (y[i] - preds[i]) ** 2;
-    ssTot += (y[i] - meanY) ** 2;
-  }
-
-  return 1 - ssRes / ssTot;
-}
 
 /* ---------------- Linear Regression (SGD) ---------------- */
 class LinearRegressor {
