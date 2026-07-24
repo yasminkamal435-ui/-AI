@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" id="htmlRoot" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="pageTitle">عقاري AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=3">
+</head>
+<body>
+
+<header class="topnav">
+  <div class="container topnav-inner">
+    <div class="brand"><span class="dot"></span><span id="brandText">عقاري AI</span></div>
+    <nav class="main-nav" id="mainNav">
+      <button data-page="home" class="active" id="navHome"></button>
+      <button data-page="predict" id="navPredict"></button>
+      <button data-page="compare" id="navCompare"></button>
+      <button data-page="dashboard" id="navDashboard"></button>
+      <button data-page="chat" id="navChat"></button>
+      <button data-page="photo" id="navPhoto"></button>
+      <button data-page="training" id="navTraining"></button>
+    </nav>
+    <div class="controls-row">
+      <div class="lang-toggle">
+        <button id="btnLangAr" class="active">عربي</button>
+        <button id="btnLangEn">EN</button>
+      </div>
+      <button class="icon-btn" id="btnThemeToggle"></button>
+    </div>
+  </div>
+</header>
+
+<!-- HOME -->
+<section class="page active" id="page-home">
+  <div class="container">
+    <div class="hero">
+      <div class="eyebrow" id="heroEyebrow"></div>
+      <h1 id="heroTitle"></h1>
+      <button class="cta-btn" id="heroCta"></button>
+    </div>
+    <div class="stat-row">
+      <div class="stat-card"><div class="val" id="statAccuracy"></div><div class="label" id="statAccuracyLabel"></div></div>
+      <div class="stat-card"><div class="val" id="statMae"></div><div class="label" id="statMaeLabel"></div></div>
+      <div class="stat-card"><div class="val" id="statSamples"></div><div class="label" id="statSamplesLabel"></div></div>
+      <div class="stat-card"><div class="val" id="statMape"></div><div class="label" id="statMapeLabel"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PREDICT -->
+<section class="page" id="page-predict">
+  <div class="container">
+    <div class="panel">
+      <div class="panel-title"><span class="dot"></span><span id="formTitle"></span></div>
+      <div class="form-grid">
+        <div class="field full">
+          <label><span id="areaLabel"></span> <b id="areaOut">120</b></label>
+          <input type="range" id="area" min="40" max="300" value="120" step="5">
+        </div>
+        <div class="field">
+          <label><span id="roomsLabel"></span> <b id="roomsOut">3</b></label>
+          <input type="range" id="rooms" min="1" max="6" value="3" step="1">
+        </div>
+        <div class="field">
+          <label><span id="floorLabel"></span> <b id="floorOut">3</b></label>
+          <input type="range" id="floor" min="0" max="15" value="3" step="1">
+        </div>
+        <div class="field">
+          <label><span id="ageLabel"></span> <b id="ageOut">5</b></label>
+          <input type="range" id="age" min="0" max="40" value="5" step="1">
+        </div>
+        <div class="field"><label id="cityLabel"></label>
+          <select id="city"><option value="0"></option><option value="1"></option><option value="2"></option><option value="3"></option><option value="4"></option></select>
+        </div>
+        <div class="field"><label id="finishLabel"></label>
+          <select id="finish"><option value="0"></option><option value="1"></option><option value="2"></option><option value="3"></option><option value="4"></option><option value="5"></option></select>
+        </div>
+      </div>
+      <div class="actions">
+        <button id="btnPredict"></button>
+        <button class="secondary-btn" id="btnAddToCompare"></button>
+      </div>
+      <div class="result" id="resultBox" style="display:none;">
+        <div class="result-label" id="resultLabelText"></div>
+        <div class="result-price" id="resultPrice">—</div>
+        <div class="result-range" id="resultRange"></div>
+      </div>
+    </div>
+
+    <div class="panel" id="explainPanel" style="display:none;">
+      <div class="panel-title"><span class="dot"></span><span id="explainTitle"></span></div>
+      <p class="panel-sub" id="explainSub"></p>
+      <div class="explain-list" id="explainList"></div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARE -->
+<section class="page" id="page-compare">
+  <div class="container">
+    <div class="panel">
+      <div class="panel-title"><span class="dot"></span><span id="compareTitle"></span></div>
+      <p class="panel-sub" id="compareSub"></p>
+      <div class="compare-grid" id="compareGrid"></div>
+    </div>
+  </div>
+</section>
+
+<!-- DASHBOARD -->
+<section class="page" id="page-dashboard">
+  <div class="container">
+    <div class="panel">
+      <div class="panel-title"><span class="dot"></span><span id="dashboardTitle"></span></div>
+      <div class="chart-grid">
+        <div><p class="panel-sub" id="labelPriceByCity"></p><div class="chart-box"><canvas id="cityChart"></canvas></div></div>
+        <div><p class="panel-sub" id="labelPriceByFinish"></p><div class="chart-box"><canvas id="finishChart"></canvas></div></div>
+        <div><p class="panel-sub" id="labelDistribution"></p><div class="chart-box"><canvas id="areaChart"></canvas></div></div>
+        <div><p class="panel-sub" id="labelImportance"></p><div class="chart-box"><canvas id="importanceChart"></canvas></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHAT -->
+<section class="page" id="page-chat">
+  <div class="container">
+    <div class="panel">
+      <div class="panel-title"><span class="dot"></span><span id="chatTitle"></span></div>
+      <p class="panel-sub" id="chatNote"></p>
+      <div class="chat-box" id="chatBox"><div class="msg system-note" id="chatStatus"></div></div>
+      <div class="chat-suggestions" id="chatSuggestions"></div>
+      <div class="chat-input-row">
+        <textarea id="chatInput"></textarea>
+        <button id="btnSend"></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHOTO -->
+<section class="page" id="page-photo">
+  <div class="container">
+    <div class="panel">
+      <div class="panel-title"><span class="dot"></span><span id="photoTitle"></span></div>
+      <p class="panel-sub" id="photoSub"></p>
+      <label class="img-drop" id="imgDropZone">
+        <input type="file" id="imgFileInput" accept="image/*">
+        <div class="hint" id="imgDropHint"></div>
+      </label>
+      <div class="img-preview-row" id="imgPreviewRow" style="display:none;">
+        <img id="imgPreview" alt="">
+        <div class="img-results">
+          <div class="img-status" id="imgStatus"></div>
+          <div id="imgPredList"></div>
+        </div>
+      </div>
+      <div class="img-summary" id="imgSummary" style="display:none;"></div>
+      <p class="panel-sub" id="imgDisclaimer" style="margin-top:14px;"></p>
+    </div>
+  </div>
+</section>
+
+<!-- TRAINING -->
+<section class="page" id="page-training">
+  <div class="container">
+    <div class="panel">
+      <div class="panel-title"><span class="dot"></span><span id="trainingTitle"></span></div>
+      <p class="panel-sub" id="trainingSub"></p>
+      <div class="actions" style="margin: 14px 0;">
+        <button class="primary-btn" id="btnStartTraining"></button>
+      </div>
+      <div class="img-status" id="trainingStatus"></div>
+      <div class="chart-box" id="trainingChartBox" style="display:none; height: 280px;">
+        <canvas id="trainingChart"></canvas>
+      </div>
+      <div class="img-summary" id="trainingResult" style="display:none;"></div>
+    </div>
+  </div>
+</section>
+
+
+<script type="module" src="app.js?v=3"></script>
+</body>
+</html>
